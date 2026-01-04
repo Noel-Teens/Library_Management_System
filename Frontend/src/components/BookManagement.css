@@ -68,16 +68,26 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-.search-filter input {
+.search-filter input, .search-filter .year-select {
   padding: 10px 16px;
   border: 1px solid #cbd5e0;
   border-radius: 8px;
-  flex: 1;
   font-size: 0.95rem;
   transition: border-color 0.2s;
+  background-color: white;
+  color: #2d3748;
 }
 
-.search-filter input:focus {
+.search-filter input {
+  flex: 2;
+}
+
+.search-filter .year-select {
+  flex: 1;
+  cursor: pointer;
+}
+
+.search-filter input:focus, .search-filter .year-select:focus {
   outline: none;
   border-color: #3182ce;
   box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
@@ -113,6 +123,8 @@
   border: 1px solid #e2e8f0;
   border-radius: 8px;
   font-size: 0.9rem;
+  background-color: white;
+  color: #2d3748;
 }
 
 .form-row input:focus {
@@ -218,6 +230,15 @@
 .book-card p strong {
   color: #718096;
   font-weight: 500;
+}
+
+.book-id {
+  font-family: monospace;
+  font-size: 0.8rem;
+  background: #f7fafc;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #4a5568;
 }
 
 .book-actions {

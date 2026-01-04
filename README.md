@@ -1,6 +1,5 @@
-# 📚 Library Management System (Fullstack)
+# 📚 Library Management System
 
-A comprehensive fullstack application for managing library books and customer data, featuring a Node.js/Express backend with MongoDB and a modern React frontend.
 
 ## 🏗️ Architecture
 

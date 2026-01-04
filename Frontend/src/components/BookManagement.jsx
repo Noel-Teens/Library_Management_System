@@ -21,6 +21,13 @@ const BookManagement = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [yearFilter, setYearFilter] = useState('');
 
+  // Generate years for selection (from 1900 to current year)
+  const currentYear = new Date().getFullYear();
+  const years = [];
+  for (let y = currentYear; y >= 1900; y--) {
+    years.push(y);
+  }
+
   // API base URL
   const API_BASE_URL = 'http://localhost:3000';
 
@@ -277,12 +284,16 @@ const BookManagement = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <input
-            type="number"
-            placeholder="Year filter (>=)"
+          <select
             value={yearFilter}
             onChange={(e) => setYearFilter(e.target.value)}
-          />
+            className="year-select"
+          >
+            <option value="">All Years ({'>='})</option>
+            {years.map(year => (
+              <option key={year} value={year}>{year}</option>
+            ))}
+          </select>
         </div>
 
         {/* Add Book Form */}
@@ -384,6 +395,7 @@ const BookManagement = () => {
           {filteredBooks.map(book => (
             <div key={book._id} className="book-card">
               <h4>{book.title}</h4>
+              <p><strong>ID</strong> <span className="book-id">{book._id}</span></p>
               <p><strong>Author</strong> <span>{book.author}</span></p>
               <p><strong>Category</strong> <span>{book.category}</span></p>
               <p><strong>Published</strong> <span>{book.publishedYear}</span></p>
@@ -393,8 +405,7 @@ const BookManagement = () => {
                 <button 
                   className="delete-btn" 
                   onClick={() => deleteBook(book._id)}
-                  disabled={book.availableCopies > 0}
-                  title={book.availableCopies > 0 ? "Can only delete books with 0 copies" : "Delete book"}
+                  title={book.availableCopies > 0 ? "Note: Can only delete books with 0 copies" : "Delete book"}
                 >
                   Delete
                 </button>

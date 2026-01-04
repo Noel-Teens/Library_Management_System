@@ -44,6 +44,8 @@
   flex: 1;
   font-size: 0.95rem;
   transition: border-color 0.2s;
+  background-color: white;
+  color: #2d3748;
 }
 
 .search-filter input:focus {
@@ -79,6 +81,8 @@
   border: 1px solid #e2e8f0;
   border-radius: 8px;
   font-size: 0.9rem;
+  background-color: white;
+  color: #2d3748;
 }
 
 .form-section button {
