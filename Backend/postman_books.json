@@ -1,0 +1,445 @@
+{
+  "info": {
+    "name": "Library Book Management API",
+    "description": "CRUD operations with error handling for book management",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. CREATE - Add new book",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 201', function() {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "",
+              "pm.test('Response contains book object', function() {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('book');",
+              "});",
+              "",
+              "var jsonData = pm.response.json();",
+              "if (jsonData.book) {",
+              "    pm.environment.set('book_id', jsonData.book._id);",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\\n  \\\"title\\\": \\\"The Hobbit\\\",\\n  \\\"author\\\": \\\"J.R.R. Tolkien\\\",\\n  \\\"category\\\": \\\"Fantasy\\\",\\n  \\\"publishedYear\\\": 1937,\\n  \\\"availableCopies\\\": 5\\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/books",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["books"]
+        }
+      }
+    },
+    {
+      "name": "2. READ - Get all books",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function() {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response contains books array', function() {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('books');",
+              "    pm.expect(jsonData.books).to.be.an('array');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/books",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["books"]
+        }
+      }
+    },
+    {
+      "name": "3. READ - Get books by category (Fiction)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function() {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response contains category books', function() {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.books).to.be.an('array');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/books/category/Fiction",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["books", "category", "Fiction"]
+        }
+      }
+    },
+    {
+      "name": "4. READ - Get books published after 2015",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function() {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response contains books after year', function() {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.searchYear).to.equal(2015);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/books/year/2015",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["books", "year", "2015"]
+        }
+      }
+    },
+    {
+      "name": "5. UPDATE - Increase copies",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function() {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Copies increased successfully', function() {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.book.availableCopies).to.be.above(0);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\\n  \\\"quantity\\\": 3\\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/books/{{book_id}}/copies",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["books", "{{book_id}}", "copies"]
+        }
+      }
+    },
+    {
+      "name": "6. UPDATE - Decrease copies",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function() {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Copies decreased successfully', function() {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.book.availableCopies).to.be.a('number');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\\n  \\\"quantity\\\": -2\\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/books/{{book_id}}/copies",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["books", "{{book_id}}", "copies"]
+        }
+      }
+    },
+    {
+      "name": "7. UPDATE - Change category",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function() {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Category updated', function() {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.book.category).to.equal('Adventure');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\\n  \\\"category\\\": \\\"Adventure\\\"\\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/books/{{book_id}}/category",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["books", "{{book_id}}", "category"]
+        }
+      }
+    },
+    {
+      "name": "8. DELETE - Attempt delete with copies > 0 (Should fail)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 400 (Bad Request)', function() {",
+              "    pm.response.to.have.status(400);",
+              "});",
+              "",
+              "pm.test('Error message about copies', function() {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.error).to.include('Cannot delete book');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:3000/books/{{book_id}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["books", "{{book_id}}"]
+        }
+      }
+    },
+    {
+      "name": "9. ERROR - Negative stock prevention",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 400 (Bad Request)', function() {",
+              "    pm.response.to.have.status(400);",
+              "});",
+              "",
+              "pm.test('Error message about negative stock', function() {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.error).to.include('Cannot reduce');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\\n  \\\"quantity\\\": -100\\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/books/{{book_id}}/copies",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["books", "{{book_id}}", "copies"]
+        }
+      }
+    },
+    {
+      "name": "10. ERROR - Book not found",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 404 (Not Found)', function() {",
+              "    pm.response.to.have.status(404);",
+              "});",
+              "",
+              "pm.test('Error message about book not found', function() {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.error).to.include('not found');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/books/000000000000000000000000",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["books", "000000000000000000000000"]
+        }
+      }
+    },
+    {
+      "name": "11. ERROR - Invalid update (negative copies)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 400 (Bad Request)', function() {",
+              "    pm.response.to.have.status(400);",
+              "});",
+              "",
+              "pm.test('Error message about validation', function() {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.error).to.be.an('array').or.to.be.a('string');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\\n  \\\"availableCopies\\\": -5\\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/books/{{book_id}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["books", "{{book_id}}"]
+        }
+      }
+    },
+    {
+      "name": "12. ERROR - Missing required fields",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 400 (Bad Request)', function() {",
+              "    pm.response.to.have.status(400);",
+              "});",
+              "",
+              "pm.test('Error message about missing fields', function() {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.error).to.include('required');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\\n  \\\"title\\\": \\\"Incomplete Book\\\"\\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/books",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["books"]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,217 @@
+.customer-management {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 1024px) {
+  .controls {
+    grid-template-columns: 1fr;
+  }
+}
+
+.controls h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #2c3e50;
+  grid-column: 1 / -1;
+  border-bottom: 2px solid #e1e8ed;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.search-filter {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  background: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  grid-column: 1 / -1;
+}
+
+.search-filter input {
+  padding: 10px 16px;
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+  flex: 1;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+}
+
+.search-filter input:focus {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+}
+
+.form-section {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  border: 1px solid #edf2f7;
+}
+
+.form-section h3 {
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+  color: #2d3748;
+  font-size: 1.1rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-row input, .form-row select {
+  padding: 10px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.form-section button {
+  background: linear-gradient(to right, #48bb78, #38a169);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  width: 100%;
+  transition: all 0.2s;
+}
+
+.form-section button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(56, 161, 105, 0.2);
+}
+
+.form-section button:disabled {
+  background: #cbd5e0;
+  cursor: not-allowed;
+}
+
+.customers-list h3 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  border: 1px solid #f5c6cb;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+  font-size: 18px;
+  color: #666;
+}
+
+.customers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.customer-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  border: 1px solid #edf2f7;
+  position: relative;
+  overflow: hidden;
+}
+
+.customer-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.customer-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: #48bb78;
+}
+
+.customer-card h4 {
+  margin: 0 0 1rem 0;
+  color: #2d3748;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.customer-card p {
+  margin: 0.5rem 0;
+  color: #4a5568;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.membership-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.membership-badge.bronze { background-color: #fbd38d; color: #7b341e; }
+.membership-badge.silver { background-color: #e2e8f0; color: #4a5568; }
+.membership-badge.gold { background-color: #fefcbf; color: #744210; }
+.membership-badge.platinum { background-color: #e9d8fd; color: #44337a; }
+
+.customer-actions {
+  margin-top: auto;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.delete-btn {
+  background-color: #fff5f5;
+  color: #e53e3e;
+  border: 1px solid #feb2b2;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.delete-btn:hover {
+  background-color: #e53e3e;
+  color: white;
+}
+
+.no-customers {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 40px;
+}
