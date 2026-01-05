@@ -88,6 +88,3 @@ npm run dev   # Runs on http://localhost:5173
     │   ├── components/      # UI Components (Books/Customers)
     │   └── App.jsx          # Main App Logic
 ```
-
-## 📜 License
-This project is licensed under the ISC License.
