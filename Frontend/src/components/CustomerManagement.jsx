@@ -14,7 +14,7 @@ const CustomerManagement = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   // API base URL
-  const API_BASE_URL = 'http://localhost:3000';
+  const API_BASE_URL = 'https://librarymanagementsystem-production-7e31.up.railway.app';
 
   // Fetch all customers
   const fetchCustomers = async () => {
